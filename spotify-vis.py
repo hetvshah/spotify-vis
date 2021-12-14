@@ -8,10 +8,12 @@ PennKey: hetvis
 
 import spotipy
 from spotipy.oauth2 import SpotifyClientCredentials
-import time
 
 import json
 import os
+
+from dotenv import load_dotenv
+load_dotenv()
 
 from flask import Flask, flash, render_template, request, url_for, redirect
 
@@ -28,8 +30,8 @@ app = Flask(__name__)
 app.secret_key = 'ax9o4klasi-0oakdn' 
 
 # Spotify credentials
-client_id ="8b46d1a1982e42e79e84776d158d7374"
-client_secret ="ebbe8f0156344b6aa589be4e1200a557"
+client_id=os.environ.get("client_id")
+client_secret=os.environ.get("client_secret")
 
 client_credentials_manager = SpotifyClientCredentials(client_id, client_secret)
 sp = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
@@ -271,7 +273,9 @@ def render_vis(artist):
 
         return render_template("vis.html", artist=artist)
     except Exception as e:
-        print("THERE WAS AN ERROR")
+        print("HERE")
+        redirect("/")
+        flash("Please enter a valid artist.")
 
 if __name__ == "__main__":
     app.run(port=5000, debug=True)
