@@ -2,6 +2,9 @@
 <h1>Spotify Data Visualization</h1>
 <form method=post enctype=multipart/form-data>
     <!-- NOTE: the file being uploaded will be accessible in flask as request.files['file'] -->
+    {% for msg in get_flashed_messages()%}
+    <p>{{msg}}</p>
+    {% endfor%}
     <input type="text" name="searchbar" placeholder="Search for an artist...">
     <input type=submit value=Search>
 </form>

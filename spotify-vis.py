@@ -124,6 +124,12 @@ def home():
     elif request.method == "POST":
         artist = request.form.get("searchbar")
 
+        search_results = sp.search(artist,1,0,"artist")
+
+        if len(search_results['artists']['items']) is 0:
+            flash("Please enter a valid artist.")
+            return redirect("/")
+
         return redirect("/" + artist)
 
 @app.route("/<artist>", methods=["GET"])
@@ -140,142 +146,126 @@ def render_vis(artist):
         Renders the /{artist} page correctly with data vis
     """
 
-    # query_dict = request.args
-    # artist = int(query_dict.get("artist"))
+    tracks = []
+    print(artist)
+    track_ids = get_albums(artist)
+    print("HI1")
+    print(len(track_ids))
+    for track_id in track_ids:
+        tracks.append(get_track(track_id))
+    
+    print("HI2")
+    df = pd.DataFrame(tracks, columns = ['name', 'album', 'artist', 'release_date', 'length', 'popularity', 'danceability', 'acousticness', 'energy', 'instrumentalness', 'liveness', 'loudness', 'speechiness', 'tempo', 'time_signature'])
 
-    # get_albums(artist);
+    # length
+    plt.hist(df['length'], 50, facecolor='g', alpha=0.75)
 
-    # if request.method == "GET":
-    #     return render_template("")
-    try:
-        print("HEREEEE")
-        print(request)
+    plt.xlabel('Length')
+    plt.ylabel('Frequency Distribution')
+    plt.title('Histogram of Length')
 
-        tracks = []
-        print(artist)
-        track_ids = get_albums(artist)
-        print(track_ids)
-        print("HI1")
-        print(len(track_ids))
-        for track_id in track_ids:
-            tracks.append(get_track(track_id))
-        
-        print("HI2")
-        df = pd.DataFrame(tracks, columns = ['name', 'album', 'artist', 'release_date', 'length', 'popularity', 'danceability', 'acousticness', 'energy', 'instrumentalness', 'liveness', 'loudness', 'speechiness', 'tempo', 'time_signature'])
+    plt.savefig('static/length.png')
 
-        # length
-        plt.hist(df['length'], 50, facecolor='g', alpha=0.75)
+    plt.clf()
 
-        plt.xlabel('Length')
-        plt.ylabel('Frequency Distribution')
-        plt.title('Histogram of Length')
+    # popularity
+    plt.hist(df['popularity'], 50, facecolor='g', alpha=0.75)
 
-        plt.savefig('static/length.png')
+    plt.xlabel('Popularity')
+    plt.ylabel('Frequency Distribution')
+    plt.title('Histogram of Popularity')
 
-        plt.clf()
+    plt.savefig('static/popularity.png')
 
-        # popularity
-        plt.hist(df['popularity'], 50, facecolor='g', alpha=0.75)
+    plt.clf()
 
-        plt.xlabel('Popularity')
-        plt.ylabel('Frequency Distribution')
-        plt.title('Histogram of Popularity')
+    # danceability
+    plt.hist(df['danceability'], 50, facecolor='g', alpha=0.75)
 
-        plt.savefig('static/popularity.png')
+    plt.xlabel('Danceability')
+    plt.ylabel('Frequency Distribution')
+    plt.title('Histogram of Danceability')
 
-        plt.clf()
+    plt.savefig('static/danceability.png')
 
-        # danceability
-        plt.hist(df['danceability'], 50, facecolor='g', alpha=0.75)
+    plt.clf()
 
-        plt.xlabel('Danceability')
-        plt.ylabel('Frequency Distribution')
-        plt.title('Histogram of Danceability')
+    # acousticness
+    plt.hist(df['acousticness'], 50, facecolor='g', alpha=0.75)
 
-        plt.savefig('static/danceability.png')
+    plt.xlabel('Acousticness')
+    plt.ylabel('Frequency Distribution')
+    plt.title('Histogram of Acousticness')
 
-        plt.clf()
+    plt.savefig('static/acousticness.png')
 
-        # acousticness
-        plt.hist(df['acousticness'], 50, facecolor='g', alpha=0.75)
+    plt.clf()
 
-        plt.xlabel('Acousticness')
-        plt.ylabel('Frequency Distribution')
-        plt.title('Histogram of Acousticness')
+    # energy
+    plt.hist(df['energy'], 50, facecolor='g', alpha=0.75)
 
-        plt.savefig('static/acousticness.png')
+    plt.xlabel('Energy')
+    plt.ylabel('Frequency Distribution')
+    plt.title('Histogram of Energy')
 
-        plt.clf()
+    plt.savefig('static/energy.png')
 
-        # energy
-        plt.hist(df['energy'], 50, facecolor='g', alpha=0.75)
+    plt.clf()
 
-        plt.xlabel('Energy')
-        plt.ylabel('Frequency Distribution')
-        plt.title('Histogram of Energy')
+    # instrumentalness
+    plt.hist(df['instrumentalness'], 50, facecolor='g', alpha=0.75)
 
-        plt.savefig('static/energy.png')
+    plt.xlabel('Instrumentalness')
+    plt.ylabel('Frequency Distribution')
+    plt.title('Histogram of Instrumentalness')
 
-        plt.clf()
+    plt.savefig('static/instrumentalness.png')
 
-        # instrumentalness
-        plt.hist(df['instrumentalness'], 50, facecolor='g', alpha=0.75)
+    plt.clf()
 
-        plt.xlabel('Instrumentalness')
-        plt.ylabel('Frequency Distribution')
-        plt.title('Histogram of Instrumentalness')
+    # liveness
+    plt.hist(df['liveness'], 50, facecolor='g', alpha=0.75)
 
-        plt.savefig('static/instrumentalness.png')
+    plt.xlabel('Liveness')
+    plt.ylabel('Frequency Distribution')
+    plt.title('Histogram of Liveness')
 
-        plt.clf()
+    plt.savefig('static/liveness.png')
 
-        # liveness
-        plt.hist(df['liveness'], 50, facecolor='g', alpha=0.75)
+    plt.clf()
 
-        plt.xlabel('Liveness')
-        plt.ylabel('Frequency Distribution')
-        plt.title('Histogram of Liveness')
+    # loudness
+    plt.hist(df['loudness'], 50, facecolor='g', alpha=0.75)
 
-        plt.savefig('static/liveness.png')
+    plt.xlabel('Loudness')
+    plt.ylabel('Frequency Distribution')
+    plt.title('Histogram of Loudness')
 
-        plt.clf()
+    plt.savefig('static/loudness.png')
 
-        # loudness
-        plt.hist(df['loudness'], 50, facecolor='g', alpha=0.75)
+    plt.clf()
 
-        plt.xlabel('Loudness')
-        plt.ylabel('Frequency Distribution')
-        plt.title('Histogram of Loudness')
+    # speechiness
+    plt.hist(df['speechiness'], 50, facecolor='g', alpha=0.75)
 
-        plt.savefig('static/loudness.png')
+    plt.xlabel('Speechiness')
+    plt.ylabel('Frequency Distribution')
+    plt.title('Histogram of Speechiness')
 
-        plt.clf()
+    plt.savefig('static/speechiness.png')
 
-        # speechiness
-        plt.hist(df['speechiness'], 50, facecolor='g', alpha=0.75)
+    plt.clf()
 
-        plt.xlabel('Speechiness')
-        plt.ylabel('Frequency Distribution')
-        plt.title('Histogram of Speechiness')
+    # tempo
+    plt.hist(df['tempo'], 50, facecolor='g', alpha=0.75)
 
-        plt.savefig('static/speechiness.png')
+    plt.xlabel('Tempo')
+    plt.ylabel('Frequency Distribution')
+    plt.title('Histogram of Tempo')
 
-        plt.clf()
+    plt.savefig('static/tempo.png')
 
-        # tempo
-        plt.hist(df['tempo'], 50, facecolor='g', alpha=0.75)
-
-        plt.xlabel('Tempo')
-        plt.ylabel('Frequency Distribution')
-        plt.title('Histogram of Tempo')
-
-        plt.savefig('static/tempo.png')
-
-        return render_template("vis.html", artist=artist)
-    except Exception as e:
-        print("HERE")
-        redirect("/")
-        flash("Please enter a valid artist.")
+    return render_template("vis.html", artist=artist)
 
 if __name__ == "__main__":
     app.run(port=5000, debug=True)
