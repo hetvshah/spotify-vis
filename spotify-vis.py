@@ -9,7 +9,6 @@ PennKey: hetvis
 import spotipy
 from spotipy.oauth2 import SpotifyClientCredentials
 
-import json
 import os
 
 from dotenv import load_dotenv
@@ -19,7 +18,6 @@ from flask import Flask, flash, render_template, request, url_for, redirect
 
 import matplotlib.pyplot as plt
 import matplotlib
-import numpy as np
 import pandas as pd
 
 matplotlib.use('agg')
@@ -68,7 +66,6 @@ class Artist:
         Returns:
             track_ids: list of all ids corresponding to tracks that the artist has
         """
-        #results = sp.search(q='artist:' + artist, type='artist')
         search_results = sp.search(self.artist,1,0,"artist")
         id = search_results['artists']['items'][0]['id']
 
@@ -285,14 +282,12 @@ def render_vis(artist):
     artistObj = Artist(artist)
 
     tracks = []
-    print(artist)
     track_ids = artistObj.get_albums()
-    print("HI1")
-    print(len(track_ids))
+
+
     for track_id in track_ids:
         tracks.append(artistObj.get_track(track_id))
     
-    print("HI2")
     df = pd.DataFrame(tracks, columns = ['name', 'album', 'artist', 'release_date', 'length', 'popularity', 'danceability', 'acousticness', 'energy', 'instrumentalness', 'liveness', 'loudness', 'speechiness', 'tempo'])
 
     artistObj.data_vis(df)
