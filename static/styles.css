@@ -28,7 +28,7 @@ h2 {
     font-weight: 400;
     color: red;
     padding-top: 1.5em;
-  }
+}
 
 .main {
   display: flex;
@@ -37,13 +37,6 @@ h2 {
   align-items: center;
   padding-top: 10%;
   margin-bottom: 10%;
-}
-
-.main h1 {
-  font-family: Inter;
-  font-weight: 600;
-  text-align: center;
-  color: #1F2041;
 }
 
 button {
@@ -96,7 +89,6 @@ input {
 }
 
 .artist {
-    margin-left: 1em;
     margin-right: auto;
     font-size: 5em;
     text-decoration: none;
@@ -124,4 +116,17 @@ input {
 .column img {
     margin-top: 8px;
     vertical-align: middle;
+}
+
+a {
+    margin-left: 1em;
+    margin-right: auto;
+    font-size: 1em;
+    color:red;
+    text-align: center;
+}
+
+.container{
+    width: 100%;
+    text-align: center;
 }
