@@ -22,7 +22,9 @@ All the data for each artist is taken from the Spotify API via Spotipy.
 
 ### Description of Code Structure
 
-The Artist class defines the artist and a list of their albums and tracks. The user is asked to input an artist on the "/" route, which will redirect to "/{artist}" if the artist they entered is valid. This route will search the artist in the Spotify library, retrieve their albums, and the tracks in these albums. Data regarding each track is retrieved, and Matplotlib is used to visualize this data. The code is broken into each route, data retrieval, and data visualization.
+The Artist class defines the artist and a list of their albums and tracks. The user is asked to input an artist on the "/" route, which will redirect to "/{artist}" if the artist they entered is valid. This route will search the artist in the Spotify library, retrieve their albums, and the tracks in these albums. Data regarding each track is retrieved, and Matplotlib is used to visualize this data. The code is broken into each route, data retrieval, and data visualization. 
+
+The artist and number of albums/tracks is printed to the console after searching. An error is displayed if the artist inputted is not valid.
 
 ### Instructions to Run
 
