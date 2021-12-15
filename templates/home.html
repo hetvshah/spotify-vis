@@ -1,10 +1,28 @@
 <!doctype html>
-<h1>Spotify Data Visualization</h1>
-<form method=post enctype=multipart/form-data>
-    <!-- NOTE: the file being uploaded will be accessible in flask as request.files['file'] -->
-    {% for msg in get_flashed_messages()%}
-    <p>{{msg}}</p>
-    {% endfor%}
-    <input type="text" name="searchbar" placeholder="Search for an artist...">
-    <input type=submit value=Search>
-</form>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>data vis</title>
+    <link rel="stylesheet" type="text/css" href="../static/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <form method=post enctype=multipart/form-data>
+        <div class="main">
+            <div>
+                <h1>Search for an artist to see their Spotify data visualized:</h1>
+            </div>
+            {% for msg in get_flashed_messages()%}
+                <h2>{{msg}}</h2>
+            {% endfor%}
+            <div>
+                <input type="text" name="searchbar" placeholder="ex: Ariana Grande">
+            </div>
+            <div>
+                <button class="login-button" type=submit>SEARCH</button>
+            </div>
+        </div>
+    </form>
+    <div class="footer">spotify data visualization © 2021, made by hetvi shah</div>
+</body>

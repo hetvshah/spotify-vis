@@ -25,7 +25,6 @@ import pandas as pd
 matplotlib.use('agg')
 
 # Flask constants
-ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
 app = Flask(__name__)
 app.secret_key = 'ax9o4klasi-0oakdn' 
 
@@ -37,25 +36,37 @@ client_credentials_manager = SpotifyClientCredentials(client_id, client_secret)
 sp = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
 
 class Artist:
-    album = []
-    track = []
 
     def __init__(self, artist):
+        """ Initializes the Artist object with empty album and track lists
+        
+        Args:
+            self: object
+            artist: artist name
+
+        """
+
         self.artist = artist
+        album_global = []
+        track_global = []
 
     def __str__(self):
-        """ Pretty prints the Node's priority and value.
+        """ Prints the name of the artist and the number of albums and tracks that the artist has
+        
+        Args:
+            self: object
+
         """
-        return "Artist: {}\nNumber of albums: {}\nNumber of tracks: {}".format(self.artist, len(album_results), len(track_ids))
+        return "Artist: {}\nNumber of albums: {}\nNumber of tracks: {}".format(self.artist, len(self.album_global), len(self.track_global))
 
     def get_albums(self):
-        """ Requests a list of the artists albums
+        """ Requests a list of the artists albums, which is used to get all the tracks
 
         Args:
-            artist (str): the requested artist
+            self: artist object
 
         Returns:
-            albums: all the albums and songs of this artist
+            track_ids: list of all ids corresponding to tracks that the artist has
         """
         #results = sp.search(q='artist:' + artist, type='artist')
         search_results = sp.search(self.artist,1,0,"artist")
@@ -76,14 +87,15 @@ class Artist:
                 track_names.add(track['name'])
                 track_ids.add(track['id'])
 
-        album = album_results
-        track = track_ids
+        self.album_global = album_results
+        self.track_global = track_ids
 
         return list(track_ids)
 
     def get_track(self, id):
         """ 
         Args:
+            self: artist object
             id: a single id for a song
 
         Returns:
@@ -108,21 +120,24 @@ class Artist:
         loudness = audio_features[0]['loudness']
         speechiness = audio_features[0]['speechiness']
         tempo = audio_features[0]['tempo']
-        time_signature = audio_features[0]['time_signature']
 
-        track = [name, album, artist, release_date, length, popularity, danceability, acousticness, energy, instrumentalness, liveness, loudness, speechiness, tempo, time_signature]
+        track = [name, album, artist, release_date, length, popularity, danceability, acousticness, energy, instrumentalness, liveness, loudness, speechiness, tempo]
+        
         return track
 
     def data_vis(self, df):
         """ 
         Args:
-            features: a list of a list of features for songs
+            self: artist object
+            df: Dataframe of the data on each track
 
         Returns:
             plots to display on the web 
         """
+        plt.clf()
+        
         # length
-        plt.hist(df['length'], 50, facecolor='g', alpha=0.75)
+        plt.hist(df['length'], 50, facecolor='b', alpha=0.75)
 
         plt.xlabel('Length')
         plt.ylabel('Frequency Distribution')
@@ -133,7 +148,7 @@ class Artist:
         plt.clf()
 
         # popularity
-        plt.hist(df['popularity'], 50, facecolor='g', alpha=0.75)
+        plt.hist(df['popularity'], 50, facecolor='b', alpha=0.75)
 
         plt.xlabel('Popularity')
         plt.ylabel('Frequency Distribution')
@@ -144,7 +159,7 @@ class Artist:
         plt.clf()
 
         # danceability
-        plt.hist(df['danceability'], 50, facecolor='g', alpha=0.75)
+        plt.hist(df['danceability'], 50, facecolor='b', alpha=0.75)
 
         plt.xlabel('Danceability')
         plt.ylabel('Frequency Distribution')
@@ -153,9 +168,9 @@ class Artist:
         plt.savefig('static/danceability.png')
 
         plt.clf()
-        
+
         # acousticness
-        plt.hist(df['acousticness'], 50, facecolor='g', alpha=0.75)
+        plt.hist(df['acousticness'], 50, facecolor='b', alpha=0.75)
 
         plt.xlabel('Acousticness')
         plt.ylabel('Frequency Distribution')
@@ -166,7 +181,7 @@ class Artist:
         plt.clf()
 
         # energy
-        plt.hist(df['energy'], 50, facecolor='g', alpha=0.75)
+        plt.hist(df['energy'], 50, facecolor='b', alpha=0.75)
 
         plt.xlabel('Energy')
         plt.ylabel('Frequency Distribution')
@@ -177,7 +192,7 @@ class Artist:
         plt.clf()
 
         # instrumentalness
-        plt.hist(df['instrumentalness'], 50, facecolor='g', alpha=0.75)
+        plt.hist(df['instrumentalness'], 50, facecolor='b', alpha=0.75)
 
         plt.xlabel('Instrumentalness')
         plt.ylabel('Frequency Distribution')
@@ -188,7 +203,7 @@ class Artist:
         plt.clf()
 
         # liveness
-        plt.hist(df['liveness'], 50, facecolor='g', alpha=0.75)
+        plt.hist(df['liveness'], 50, facecolor='b', alpha=0.75)
 
         plt.xlabel('Liveness')
         plt.ylabel('Frequency Distribution')
@@ -199,7 +214,7 @@ class Artist:
         plt.clf()
 
         # loudness
-        plt.hist(df['loudness'], 50, facecolor='g', alpha=0.75)
+        plt.hist(df['loudness'], 50, facecolor='b', alpha=0.75)
 
         plt.xlabel('Loudness')
         plt.ylabel('Frequency Distribution')
@@ -210,7 +225,7 @@ class Artist:
         plt.clf()
 
         # speechiness
-        plt.hist(df['speechiness'], 50, facecolor='g', alpha=0.75)
+        plt.hist(df['speechiness'], 50, facecolor='b', alpha=0.75)
 
         plt.xlabel('Speechiness')
         plt.ylabel('Frequency Distribution')
@@ -221,7 +236,7 @@ class Artist:
         plt.clf()
 
         # tempo
-        plt.hist(df['tempo'], 50, facecolor='g', alpha=0.75)
+        plt.hist(df['tempo'], 50, facecolor='b', alpha=0.75)
 
         plt.xlabel('Tempo')
         plt.ylabel('Frequency Distribution')
@@ -278,9 +293,11 @@ def render_vis(artist):
         tracks.append(artistObj.get_track(track_id))
     
     print("HI2")
-    df = pd.DataFrame(tracks, columns = ['name', 'album', 'artist', 'release_date', 'length', 'popularity', 'danceability', 'acousticness', 'energy', 'instrumentalness', 'liveness', 'loudness', 'speechiness', 'tempo', 'time_signature'])
+    df = pd.DataFrame(tracks, columns = ['name', 'album', 'artist', 'release_date', 'length', 'popularity', 'danceability', 'acousticness', 'energy', 'instrumentalness', 'liveness', 'loudness', 'speechiness', 'tempo'])
 
     artistObj.data_vis(df)
+
+    print(artistObj.__str__())
 
     return render_template("vis.html", artist=artist)
 

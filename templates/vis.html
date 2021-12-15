@@ -1,10 +1,40 @@
 <!doctype html>
-<h1>{{artist}}</h1>
-<img src="../static/acousticness.png" />
-<img src="../static/danceability.png" />
-<img src="../static/energy.png" />
-<img src="../static/instrumentalness.png" />
-<img src="../static/length.png" />
-<img src="../static/liveness.png" />
-<img src="../static/loudness.png" />
-<img src="../static/popularity.png" />
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>data vis</title>
+    <link rel="stylesheet" type="text/css" href="../static/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <style type="text/css">
+		body {
+  			background: white;
+		}
+	</style>
+</head>
+
+<body>
+    <!-- {{artist}} -->
+    <h1 class="artist">~ {{artist}} ~</h1>
+    <div class="column">
+        <div class="row">
+            <img src="../static/acousticness.png" />
+            <img src="../static/danceability.png" />
+        </div>
+        <div class="row">
+            <img src="../static/energy.png" />
+            <img src="../static/instrumentalness.png" />
+        </div>
+        <div class="row">
+            <img src="../static/length.png" />
+            <img src="../static/liveness.png" />
+        </div>
+        <div class="row">
+            <img src="../static/loudness.png" />
+            <img src="../static/popularity.png" />
+        </div>
+        <div class="row">
+            <img src="../static/speechiness.png" />
+            <img src="../static/tempo.png" />
+        </div>
+    </div>
+</body>

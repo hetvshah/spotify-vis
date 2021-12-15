@@ -1,0 +1,129 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+
+* {
+   box-sizing: border-box;
+   margin: 0;
+   padding: 0;
+   font-family: Inter;
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  width: 100%;
+  /* height: 100%; */
+  background: linear-gradient(180deg, #c9d6ff 11.63%, #c9d6ff 45.45%, #c9d6ff 50.45%, #E2E2E2 101.46%);
+  /* background: linear-gradient(180deg, #F5DDF5 11.63%, #F5DDF5 45.45%, #BBACF2 101.46%); */
+}
+
+h1 {
+  font-size: 3em;
+  font-family: Inter;
+  font-weight: 600;
+}
+
+h2 {
+    font-size: 1em;
+    font-family: Inter;
+    font-weight: 400;
+    color: red;
+    padding-top: 1.5em;
+  }
+
+.main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding-top: 10%;
+  margin-bottom: 10%;
+}
+
+.main h1 {
+  font-family: Inter;
+  font-weight: 600;
+  text-align: center;
+  color: #1F2041;
+}
+
+button {
+  cursor: pointer;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 1.5em;
+  color: #4B3F72;
+  border: none;
+  border-radius: 50px;
+  background: #e3e6f7;
+  width: 250px;
+  height: 3em;
+  margin-top: 60px;
+  font-family: Inter;
+}
+
+button:hover {
+    background-color: white;
+    opacity: 1;
+}
+
+label{
+  cursor: pointer;
+  font-size: 2.7rem;
+  padding: 7px;
+}
+
+input {
+    background:url(bg-dot.jpg) repeat-x center bottom;
+    margin-top: 3em;
+    width: 20em;
+    border-radius: 5px;
+    border:10px;
+    padding: 1em;
+
+    border:1px solid #bbb;
+    outline: 0;
+    font-family: Inter;
+    font-size: 1em;
+}
+
+.footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+    padding-bottom: 1em;
+}
+
+.artist {
+    margin-left: 1em;
+    margin-right: auto;
+    font-size: 5em;
+    text-decoration: none;
+    text-align: center;
+    background-image: linear-gradient(180deg, #c9d6ff 11.63%, #c9d6ff 45.45%, #c9d6ff 50.45%, #E2E2E2 101.46%);
+    background-clip: text;
+    background-size: 100%;
+    -webkit-background-clip: text;
+    -moz-background-clip: text;
+    -webkit-text-fill-color: transparent; 
+    -moz-text-fill-color: transparent;
+}
+
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 0 4px;
+}
+
+.column {
+    flex: 50%;
+    padding: 1em 12em;
+}
+  
+.column img {
+    margin-top: 8px;
+    vertical-align: middle;
+}
