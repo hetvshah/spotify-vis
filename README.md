@@ -1,13 +1,29 @@
-Name: Hetvi Shah
-PennKey: hetvis
+# Spotify Data Visualization
 
-Final Project Proposal
+Enter an artist and see their data (danceability, energy, popularity, acousticness, etc) on their tracks visualized
 
-For the final project, I wanted to work with the Spotify API. My idea is to allow the user to input any artist and display
-some visualization of the data from every album and single of this artist. This visualization could be the number of tracks
-over time or the average popularity, acousticness, energy, liveness, tempo, etc over time. After looking through the
-documenatation, I think the Spotipy library could be useful to get access to the data offered by Spotify. I would probably
-use Pandas to create the dataset and make it ready for use for the visualization. In terms of visualization, I plan on using
-some combination of Matplotlib, Seaborn, and Plotly. I also plan on using Flask for the simple web dev required.
+<img width="1676" alt="Screen Shot 2021-12-14 at 8 50 15 PM" src="https://user-images.githubusercontent.com/68198839/146108200-3eec29fe-7b6f-445c-8d51-41289ee9f12e.png">
 
-I am still thinking about what exactly to display and how to make it look pleasant and cool on the frontend.
+Built with Python (Flask, Matplotlib, Pandas)
+
+### Data
+
+All the data for each artist is taken from the Spotify API via Spotipy.
+
+*Note:* It takes some time for the data to load, especially for larger, well-known artists.
+
+### Implementation Requirements
+
+- [x] One class definition (Artist class)
+- [x] Two dunder methods (str, init)
+- [x] One first-party module (os)
+- [x] Two third-party modules (flask, matplotlib, pandas)
+- [x] In-line documentation
+
+### Description of Code Structure
+
+The Artist class defines the artist and a list of their albums and tracks. The user is asked to input an artist on the "/" route, which will redirect to "/{artist}" if the artist they entered is valid. This route will search the artist in the Spotify library, retrieve their albums, and the tracks in these albums. Data regarding each track is retrieved, and Matplotlib is used to visualize this data. The code is broken into each route, data retrieval, and data visualization.
+
+### Instructions to Run
+
+To run, download the code. Create a .env file, get Spotify credentials, and put the client_id and client_secret in there. Run python3 spotify-vis.py in the root directory—this will open a local server where you can then interact with the frontend.
