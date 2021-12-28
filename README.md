@@ -12,7 +12,7 @@ All the data for each artist is taken from the Spotify API via Spotipy.
 
 *Note:* It takes some time for the data to load, especially for larger, well-known artists.
 
-### Implementation Requirements
+### Implementation Requirements (CIS 192)
 
 - [x] One class definition (Artist class)
 - [x] Two dunder methods (str, init)
